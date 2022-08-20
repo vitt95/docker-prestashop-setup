@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: nginx_ps
+    build:
+      context: ./nginx
+    volumes:
+      - ../src:/var/www/html/prestashop    
+    ports:
+      - 80:80
+    depends_on:
+      - php
+
+  php:
+    container_name: php_ps
+    build:
+      context: ./php
+    volumes:
+      - ./src:/var/www/html/prestashop
+
+  mariadb:
+    image: arm64v8/mariadb:10.4
+    env_file: ./env/mysql.env
+    volumes:
+      - ../mariadb_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+

@@ -1,0 +1,10 @@
+FROM arm64v8/php:7.3-fpm
+
+RUN apt-get update && \ 
+    apt-get install -y libjpeg-dev libpng-dev libc-client-dev libkrb5-dev zlib1g-dev libpng-dev libzip-dev libxml2-dev libicu-dev libldap2-dev libmagickwand-dev --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap && \
+    docker-php-ext-install pdo_mysql zip soap soap intl bcmath exif ldap opcache && \
+    docker-php-ext-configure gd --with-jpeg-dir && docker-php-ext-install gd
+
+EXPOSE 9000
