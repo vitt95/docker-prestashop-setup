@@ -17,7 +17,7 @@ services:
     build:
       context: ./php
     volumes:
-      - ./src:/var/www/html/prestashop
+      - ../src:/var/www/html/prestashop
 
   mariadb:
     image: arm64v8/mariadb:10.4
